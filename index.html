@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kirk Kodre</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&display=swap" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── Shared ── */
+    .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 16px;
+    }
+    .muted { color: rgba(255,255,255,0.4); }
+    .section-icon {
+      font-size: 28px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    /* ── Video Section Base ── */
+    .vid-section {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .vid-section video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    /* Top + bottom fade into page bg for every video section */
+    .vid-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════
+       HERO
+    ═══════════════════════════ */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero::before {
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.55) 0%,
+        rgba(0,0,0,0.25) 35%,
+        rgba(0,0,0,0.25) 55%,
+        rgba(10,10,10,0.7) 85%,
+        #0a0a0a 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 24px;
+    }
+    .hero-content h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 40px rgba(0,0,0,0.6);
+    }
+    .hero-content .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.6);
+      max-width: 480px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+    .hero-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 10px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .hero-link:hover {
+      background: rgba(255,255,255,0.16);
+      border-color: rgba(255,255,255,0.25);
+      transform: translateY(-1px);
+    }
+    .hero-link .material-symbols-rounded { font-size: 18px; }
+    .hero-link svg, .about-link-icon svg { width: 18px; height: 18px; fill: currentColor; }
+    .about-link-icon svg { width: 20px; height: 20px; }
+
+    /* ═══════════════════════════
+       ABOUT ME
+    ═══════════════════════════ */
+    .about {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      margin-top: -1px; /* kill any sub-pixel gap */
+    }
+    .about::before {
+      background: linear-gradient(
+        to bottom,
+        #0a0a0a 0%,
+        rgba(10,10,10,0.5) 12%,
+        rgba(10,10,10,0.3) 35%,
+        rgba(10,10,10,0.3) 65%,
+        rgba(10,10,10,0.5) 88%,
+        #0a0a0a 100%
+      );
+    }
+    /* extra left-side scrim so text pops */
+    .about::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(10,10,10,0.85) 0%,
+        rgba(10,10,10,0.55) 35%,
+        rgba(10,10,10,0.15) 65%,
+        rgba(10,10,10,0.1) 100%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+    .about-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 120px 48px;
+      width: 100%;
+    }
+    .about-inner { max-width: 500px; }
+    .about-inner h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    }
+    .about-inner h2 .muted { font-weight: 500; }
+    .about-inner p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .about-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 32px;
+    }
+    .about-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(10,10,10,0.45);
+      backdrop-filter: blur(16px);
+      text-decoration: none;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+    .about-link:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.18);
+      transform: translateX(4px);
+    }
+    .about-link-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .about-link-icon .material-symbols-rounded { font-size: 20px; }
+    .about-link-icon.yt { background: rgba(255,0,0,0.15); color: #ff4444; }
+    .about-link-icon.agency { background: rgba(80,140,255,0.15); color: #6ea8fe; }
+    .about-link-icon.community { background: rgba(80,200,120,0.15); color: #5fd88a; }
+    .about-link-icon.uni { background: rgba(255,180,50,0.15); color: #ffc145; }
+    .about-link-icon.x { background: rgba(255,255,255,0.1); color: #fff; }
+    .about-link-icon.linkedin { background: rgba(10,102,194,0.2); color: #5b9bd5; }
+    .about-link-icon.ig { background: rgba(225,48,108,0.15); color: #e1306c; }
+    .about-link-text { flex: 1; }
+    .about-link-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
+    .about-link-desc { font-size: 0.7rem; color: rgba(255,255,255,0.35); }
+    .about-link-arrow {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.15);
+      transition: color 0.2s ease;
+    }
+    .about-link:hover .about-link-arrow { color: rgba(255,255,255,0.5); }
+
+    /* ═══════════════════════════
+       WHAT I'VE BUILT
+    ═══════════════════════════ */
+    .built {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -1px;
+    }
+    .built::before {
+      background: linear-gradient(
+        to bottom,
+        #0a0a0a 0%,
+        rgba(10,10,10,0.45) 14%,
+        rgba(10,10,10,0.25) 40%,
+        rgba(10,10,10,0.25) 60%,
+        rgba(10,10,10,0.45) 86%,
+        #0a0a0a 100%
+      );
+    }
+    .built-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      width: 100%;
+      padding: 100px 48px;
+    }
+    .built-header h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+    .built-header h2 .muted { font-weight: 500; }
+    .built-header > p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.5);
+      max-width: 480px;
+      line-height: 1.6;
+    }
+    .built-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .built-stat {
+      padding: 24px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(10,10,10,0.45);
+      backdrop-filter: blur(16px);
+    }
+    .built-stat-value {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .built-stat-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.4;
+    }
+
+    /* ═══════════════════════════
+       QUOTE
+    ═══════════════════════════ */
+    .quote {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: -1px;
+    }
+    .quote::before {
+      background: linear-gradient(
+        to bottom,
+        #0a0a0a 0%,
+        rgba(10,10,10,0.5) 15%,
+        rgba(10,10,10,0.3) 40%,
+        rgba(10,10,10,0.3) 60%,
+        rgba(10,10,10,0.5) 85%,
+        #0a0a0a 100%
+      );
+    }
+    .quote-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      padding: 80px 24px;
+    }
+    .quote-text {
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 400;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 32px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+    .quote-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .quote-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-shadow: 0 1px 10px rgba(0,0,0,0.4);
+    }
+    .quote-role {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: 2px;
+    }
+
+    /* ═══════════════════════════
+       CTA INPUT
+    ═══════════════════════════ */
+    .cta-input-group {
+      display: flex;
+      gap: 0;
+      max-width: 420px;
+      margin: 0 auto;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(10,10,10,0.6);
+      backdrop-filter: blur(16px);
+    }
+    .cta-input-group input {
+      flex: 1;
+      padding: 14px 20px;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+    .cta-input-group input::placeholder { color: rgba(255,255,255,0.25); }
+    .cta-input-group button {
+      padding: 14px 28px;
+      background: #fff;
+      color: #0a0a0a;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      white-space: nowrap;
+    }
+    .cta-input-group button:hover { background: #e0e0e0; }
+
+    /* ═══════════════════════════
+       BOTTOM VIDEO
+    ═══════════════════════════ */
+    .bottom-vid {
+      min-height: 80vh;
+      margin-top: -1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bottom-vid::before {
+      background: linear-gradient(
+        to bottom,
+        #0a0a0a 0%,
+        rgba(10,10,10,0.55) 15%,
+        rgba(10,10,10,0.4) 40%,
+        rgba(10,10,10,0.4) 60%,
+        rgba(10,10,10,0.55) 85%,
+        #0a0a0a 100%
+      );
+    }
+    /* extra center scrim so text is always readable */
+    .bottom-vid::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(10,10,10,0.6) 0%,
+        rgba(10,10,10,0.2) 70%,
+        transparent 100%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+    .bottom-cta {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 600px;
+      padding: 80px 24px;
+    }
+    .bottom-cta h2 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.7);
+    }
+    .bottom-cta p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 40px;
+      line-height: 1.6;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.5);
+    }
+
+    /* ═══════════════════════════
+       FOOTER
+    ═══════════════════════════ */
+    .footer {
+      padding: 40px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer span { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+    .footer-links { display: flex; gap: 20px; align-items: center; }
+    .footer-links a {
+      color: rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+    .footer-links svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* ═══════════════════════════
+       RESPONSIVE
+    ═══════════════════════════ */
+    @media (max-width: 768px) {
+      .about-content { padding: 100px 24px; }
+      .built-stats { grid-template-columns: 1fr; }
+      .built-content { padding: 80px 24px; }
+      .hero-links { gap: 8px; }
+      .hero-link { font-size: 0.75rem; padding: 8px 16px; }
+      .footer { flex-direction: column; gap: 16px; text-align: center; }
+      .cta-input-group { flex-direction: column; border-radius: 16px; }
+      .cta-input-group button { border-radius: 0; }
+      .bottom-vid { height: 50vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="vid-section hero">
+    <video autoplay loop muted playsinline>
+      <source src="https://tempfile.aiquickdraw.com/seedance/1776470166937-4hn9xqoldgc.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-content">
+      <h1>Kirk Vid Kodre</h1>
+      <p class="hero-sub">Building AI products, teaching entrepreneurs, and documenting the journey.</p>
+      <div class="hero-links">
+        <a href="https://www.youtube.com/@KVKAutomates" target="_blank" class="hero-link">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
+        </a>
+        <a href="https://www.keva.tech/" target="_blank" class="hero-link">
+          <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 0 0-1.02.24l-2.2 2.2a15.045 15.045 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM12 3v10l3-3h6V3h-9z"/></svg>
+          Keva Tech
+        </a>
+        <a href="https://www.skool.com/kvk-automates-ai/about" target="_blank" class="hero-link">
+          <svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+          Community
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ME ═══ -->
+  <section class="vid-section about">
+    <video autoplay loop muted playsinline>
+      <source src="https://tempfile.aiquickdraw.com/seedance/1776473120083-r817zn5rii.mp4" type="video/mp4" />
+    </video>
+    <div class="about-content">
+      <div class="about-inner">
+        <span class="material-symbols-rounded section-icon">person</span>
+        <p class="label">About me</p>
+        <h2>Kirk Vid Kodre.<br><span class="muted">Builder. Creator. Student.</span></h2>
+        <p>Half Australian, half Slovenian. I build AI-powered products, teach entrepreneurs how to sell AI services, and document the whole journey on YouTube.</p>
+        <p>When I'm not shipping projects, I'm studying psychology at university or figuring out what to build next.</p>
+
+        <div class="about-links">
+          <a href="https://www.youtube.com/@KVKAutomates" target="_blank" class="about-link">
+            <div class="about-link-icon yt"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
+            <div class="about-link-text">
+              <div class="about-link-title">YouTube — @KVKAutomates</div>
+              <div class="about-link-desc">AI tutorials, builds, and behind the scenes</div>
+            </div>
+            <span class="about-link-arrow">&rarr;</span>
+          </a>
+          <a href="https://www.keva.tech/" target="_blank" class="about-link">
+            <div class="about-link-icon agency"><svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 0 0-1.02.24l-2.2 2.2a15.045 15.045 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM12 3v10l3-3h6V3h-9z"/></svg></div>
+            <div class="about-link-text">
+              <div class="about-link-title">Keva Tech</div>
+              <div class="about-link-desc">AI automation agency — websites, chatbots & automations</div>
+            </div>
+            <span class="about-link-arrow">&rarr;</span>
+          </a>
+          <a href="https://www.skool.com/kvk-automates-ai/about" target="_blank" class="about-link">
+            <div class="about-link-icon community"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg></div>
+            <div class="about-link-text">
+              <div class="about-link-title">KVK Automates AI — Skool</div>
+              <div class="about-link-desc">370+ members learning to build and sell AI services</div>
+            </div>
+            <span class="about-link-arrow">&rarr;</span>
+          </a>
+          <a href="#" class="about-link">
+            <div class="about-link-icon uni"><span class="material-symbols-rounded">school</span></div>
+            <div class="about-link-text">
+              <div class="about-link-title">Swinburne University</div>
+              <div class="about-link-desc">Psychology & data science</div>
+            </div>
+            <span class="about-link-arrow">&rarr;</span>
+          </a>
+          <a href="https://x.com/kodre92927" target="_blank" class="about-link">
+            <div class="about-link-icon x"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+            <div class="about-link-text">
+              <div class="about-link-title">X (Twitter)</div>
+              <div class="about-link-desc">Thoughts, updates, and AI hot takes</div>
+            </div>
+            <span class="about-link-arrow">&rarr;</span>
+          </a>
+          <a href="https://www.linkedin.com/in/kirk-vid-kodre-747baa379/" target="_blank" class="about-link">
+            <div class="about-link-icon linkedin"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div>
+            <div class="about-link-text">
+              <div class="about-link-title">LinkedIn</div>
+              <div class="about-link-desc">Connect with me professionally</div>
+            </div>
+            <span class="about-link-arrow">&rarr;</span>
+          </a>
+          <a href="https://www.instagram.com/kvk.sloau/" target="_blank" class="about-link">
+            <div class="about-link-icon ig"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></div>
+            <div class="about-link-text">
+              <div class="about-link-title">Instagram — @kvk.sloau</div>
+              <div class="about-link-desc">Behind the scenes and daily life</div>
+            </div>
+            <span class="about-link-arrow">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHAT I'VE BUILT ═══ -->
+  <section class="vid-section built">
+    <video autoplay loop muted playsinline>
+      <source src="https://tempfile.aiquickdraw.com/seedance/1776472725912-6arp00vzef2.mp4" type="video/mp4" />
+    </video>
+    <div class="built-content">
+      <div class="built-header">
+        <span class="material-symbols-rounded section-icon">construction</span>
+        <p class="label">What I've built</p>
+        <h2>Thousands of automations.<br><span class="muted">Hundreds of businesses helped.</span></h2>
+        <p>AI websites, chatbots, voice receptionists, workflow automations, SaaS products — if it can be built with AI, I've probably shipped it.</p>
+      </div>
+      <div class="built-stats">
+        <div class="built-stat">
+          <div class="built-stat-value">1,000+</div>
+          <div class="built-stat-label">Automations built</div>
+        </div>
+        <div class="built-stat">
+          <div class="built-stat-value">370+</div>
+          <div class="built-stat-label">Community members learning AI</div>
+        </div>
+        <div class="built-stat">
+          <div class="built-stat-value">3</div>
+          <div class="built-stat-label">SaaS products shipped</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ QUOTE ═══ -->
+  <section class="vid-section quote">
+    <video autoplay loop muted playsinline>
+      <source src="https://tempfile.aiquickdraw.com/seedance/1776549664954-yiqrv80yfmc.mp4" type="video/mp4" />
+    </video>
+    <div class="quote-inner">
+      <div class="quote-text">
+        "I've been using the beta for two weeks.<br>
+        It replaced my entire workflow &mdash;<br>
+        and honestly, it's just more fun to use."
+      </div>
+      <div class="quote-avatar">E</div>
+      <div class="quote-name">Edvard V.</div>
+      <div class="quote-role">Product Designer</div>
+    </div>
+  </section>
+
+  <!-- ═══ BOTTOM VIDEO + CTA ═══ -->
+  <section class="vid-section bottom-vid">
+    <video autoplay loop muted playsinline>
+      <source src="https://tempfile.aiquickdraw.com/seedance/1776471663355-m838fzk65yo.mp4" type="video/mp4" />
+    </video>
+    <div class="bottom-cta">
+      <h2>Let's build something together.</h2>
+      <p>Got an idea, a project, or just want to connect? Reach out.</p>
+      <div class="cta-input-group">
+        <input type="email" placeholder="your@email.com" />
+        <button>Get in touch</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <span>&copy; 2026 Kirk Vid Kodre. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://www.youtube.com/@KVKAutomates" target="_blank" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="https://x.com/kodre92927" target="_blank" title="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="https://www.linkedin.com/in/kirk-vid-kodre-747baa379/" target="_blank" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a href="https://www.instagram.com/kvk.sloau/" target="_blank" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
+      <a href="https://www.skool.com/kvk-automates-ai/about" target="_blank" title="Skool"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg></a>
+    </div>
+  </footer>
+
+</body>
+</html>
